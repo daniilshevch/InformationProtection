@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using InformationProtection1.Services.Lab1;
 using InformationProtection1.Services.Lab2;
 using InformationProtection1.Services.Lab3;
+using InformationProtection1.Services.Lab4;
 
 class Server
 {
@@ -20,7 +21,7 @@ class Server
 
         services.AddCors(options =>
         {
-            options.AddPolicy("AllowFrontEnd", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            options.AddPolicy("AllowFrontEnd", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("Content-Disposition"));
         });
         services.AddEndpointsApiExplorer();
         services.AddControllers();
@@ -40,6 +41,7 @@ class Server
         services.AddScoped<PeriodCheckerService>();
         services.AddScoped<Md5HashService>();
         services.AddScoped<RC5EncryptionService>();
+        services.AddScoped<RSAService>();
 
         WebApplication app = builder.Build();
         if (app.Environment.IsDevelopment())

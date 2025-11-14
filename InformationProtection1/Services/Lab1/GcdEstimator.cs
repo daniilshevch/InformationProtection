@@ -1,6 +1,6 @@
 ﻿namespace InformationProtection1.Services.Lab1
 {
-    public class GcdEstimator
+    public class GcdEstimator: IGcdEstimator
     {
         public long CountGCD(long a, long b)
         {

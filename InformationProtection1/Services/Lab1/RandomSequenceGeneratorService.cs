@@ -1,6 +1,6 @@
 ﻿namespace InformationProtection1.Services.Lab1
 {
-    public class RandomSequenceGeneratorService
+    public class RandomSequenceGeneratorService: IRandomSequenceGeneratorService
     {
         public List<long>? GenerateRandomSequence(int amount, long? _m = null, long? _a = null, long? _c = null, long? _X0 = null)
         {

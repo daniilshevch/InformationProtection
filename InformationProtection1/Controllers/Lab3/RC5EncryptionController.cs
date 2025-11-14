@@ -48,14 +48,26 @@ namespace InformationProtection1.Controllers.Lab3
                 KeyBase64 = key
             });
         }
-
         [HttpPost("decrypt-file")]
         public async Task<IActionResult> DecryptFile([FromForm] RC5FileEncryptRequestDto dto)
         {
             byte[] decrypted = await rc5Service.DecryptFileAsync(dto.File, dto.Password, dto.KeyBits);
-            byte[] decryptedBytes = RC5EncryptionService.RemovePadding(decrypted.ToArray());
+            byte[] decryptedBytes = RC5EncryptionService.RemovePadding(decrypted);
+
             string ext = RC5EncryptionService.DetectFileExtension(decryptedBytes);
-            return File(decrypted, "application/octet-stream", "decrypted_" + dto.File.FileName + ext);
+            string originalName = Path.GetFileNameWithoutExtension(dto.File.FileName);
+            string outputFileName = $"decrypted_{originalName}{ext}";
+
+            var result = new FileContentResult(decryptedBytes, "application/octet-stream")
+            {
+                FileDownloadName = outputFileName
+            };
+
+            result.FileDownloadName = outputFileName;
+            Response.Headers["Content-Disposition"] = $"attachment; filename=\"{outputFileName}\"";
+
+            return result;
         }
+
     }
 }
