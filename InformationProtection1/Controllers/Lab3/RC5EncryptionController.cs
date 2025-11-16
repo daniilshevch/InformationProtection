@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using InformationProtection1.Dto.Lab3;
-using InformationProtection1.Services.Lab3;
-
+using InformationProtection1.Services.Lab3.Implementations;
+using InformationProtection1.Services.Lab3.Interfaces;
 namespace InformationProtection1.Controllers.Lab3
 {
     [ApiController]
     [Route("lab3/[controller]")]
     public class Rc5EncryptionController : ControllerBase
     {
-        private readonly RC5EncryptionService rc5Service;
+        private readonly IRC5EncryptionService rc5Service;
 
-        public Rc5EncryptionController(RC5EncryptionService rc5Service)
+        public Rc5EncryptionController(IRC5EncryptionService rc5Service)
         {
             this.rc5Service = rc5Service;
         }

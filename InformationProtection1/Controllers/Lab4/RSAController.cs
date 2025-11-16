@@ -1,18 +1,19 @@
 ﻿using InformationProtection1.Dto.Lab4;
-using InformationProtection1.Services.Lab4;
+using InformationProtection1.Services.Lab4.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
+using InformationProtection1.Services.Lab4.Interfaces;
 namespace InformationProtection1.Controllers.Lab4
 {
     [ApiController]
     [Route("lab4/[controller]")]
     public class RSAController: ControllerBase
     {
-        private readonly RSAService rsaService;
+        private readonly IRSAService rsaService;
 
-        public RSAController(RSAService rsaService)
+        public RSAController(IRSAService rsaService)
         {
             this.rsaService = rsaService;
         }

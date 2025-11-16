@@ -1,6 +1,6 @@
 ﻿using Xunit;
-using InformationProtection1.Services.Lab1;
 using System.Collections.Generic;
+using InformationProtection1.Services.Lab1.Implementations;
 
 namespace InformationProtection1.Tests.Lab1
 {

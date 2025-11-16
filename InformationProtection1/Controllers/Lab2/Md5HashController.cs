@@ -1,6 +1,6 @@
 ﻿using InformationProtection1.Dto.General;
 using InformationProtection1.Dto.Lab2;
-using InformationProtection1.Services.Lab2;
+using InformationProtection1.Services.Lab2.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

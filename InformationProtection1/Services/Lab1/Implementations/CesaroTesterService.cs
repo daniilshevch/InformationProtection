@@ -1,7 +1,8 @@
 ﻿using InformationProtection1.Dto.Lab1;
+using InformationProtection1.Services.Lab1.Interfaces;
 using System.Transactions;
 
-namespace InformationProtection1.Services.Lab1
+namespace InformationProtection1.Services.Lab1.Implementations
 {
     public class CesaroTesterService : ICesaroTesterService
     {

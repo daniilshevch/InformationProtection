@@ -1,11 +1,12 @@
-﻿using System.Security.Cryptography;
+﻿using InformationProtection1.Services.Lab4.Interfaces;
+using System.Security.Cryptography;
 
-namespace InformationProtection1.Services.Lab4
+namespace InformationProtection1.Services.Lab4.Implementations
 {
-    public class RSAService
+    public class RSAService : IRSAService
     {
-        private const int AesKeySize = 32; 
-        private const int AesIvSize = 16;  
+        private const int AesKeySize = 32;
+        private const int AesIvSize = 16;
 
         public (string publicKeyPem, string privateKeyPem) GenerateKeys()
         {
@@ -23,8 +24,8 @@ namespace InformationProtection1.Services.Lab4
             rsa.ImportFromPem(publicKeyPem);
 
             using var aes = Aes.Create();
-            aes.KeySize = AesKeySize * 8; 
-            aes.BlockSize = AesIvSize * 8; 
+            aes.KeySize = AesKeySize * 8;
+            aes.BlockSize = AesIvSize * 8;
             aes.Padding = PaddingMode.PKCS7;
             aes.GenerateKey();
             aes.GenerateIV();

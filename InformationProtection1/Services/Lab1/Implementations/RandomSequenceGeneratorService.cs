@@ -1,4 +1,6 @@
-﻿namespace InformationProtection1.Services.Lab1
+﻿using InformationProtection1.Services.Lab1.Interfaces;
+
+namespace InformationProtection1.Services.Lab1.Implementations
 {
     public class RandomSequenceGeneratorService: IRandomSequenceGeneratorService
     {

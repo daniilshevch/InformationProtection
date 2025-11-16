@@ -1,5 +1,4 @@
-﻿
-namespace InformationProtection1.Services.Lab2
+﻿namespace InformationProtection1.Services.Lab2.Interfaces
 {
     public interface IMd5HashService
     {

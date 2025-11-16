@@ -1,8 +1,9 @@
 ﻿using Xunit;
 using Moq;
-using InformationProtection1.Services.Lab1;
 using InformationProtection1.Dto.Lab1;
 using System.Collections.Generic;
+using InformationProtection1.Services.Lab1.Implementations;
+using InformationProtection1.Services.Lab1.Interfaces;
 
 namespace InformationProtection1.Tests.Lab1
 {

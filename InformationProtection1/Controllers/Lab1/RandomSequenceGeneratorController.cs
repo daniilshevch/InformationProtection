@@ -1,4 +1,4 @@
-﻿using InformationProtection1.Services.Lab1;
+﻿using InformationProtection1.Services.Lab1.Implementations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InformationProtection1.Controllers.Lab1

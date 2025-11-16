@@ -1,6 +1,7 @@
-﻿using System.Text;
+﻿using InformationProtection1.Services.Lab2.Interfaces;
+using System.Text;
 
-namespace InformationProtection1.Services.Lab2
+namespace InformationProtection1.Services.Lab2.Implementations
 {
     public class Md5HashService : IMd5HashService
     {
@@ -13,7 +14,7 @@ namespace InformationProtection1.Services.Lab2
         }
 
         private static uint LeftRotate(uint x, int n) =>
-            (x << n) | (x >> (32 - n));
+            x << n | x >> 32 - n;
 
         private static readonly int[] S =
         {
@@ -33,7 +34,7 @@ namespace InformationProtection1.Services.Lab2
             padded[input.Length] = 0x80;
 
             for (int i = 0; i < 8; i++)
-                padded[padded.Length - 8 + i] = (byte)((bitLength >> (8 * i)) & 0xFF);
+                padded[padded.Length - 8 + i] = (byte)(bitLength >> 8 * i & 0xFF);
 
             return padded;
         }
@@ -66,12 +67,12 @@ namespace InformationProtection1.Services.Lab2
                     uint F, g;
                     if (k < 16)
                     {
-                        F = (b & c) | (~b & d);
+                        F = b & c | ~b & d;
                         g = (uint)k;
                     }
                     else if (k < 32)
                     {
-                        F = (d & b) | (~d & c);
+                        F = d & b | ~d & c;
                         g = (uint)((5 * k + 1) % 16);
                     }
                     else if (k < 48)
@@ -82,7 +83,7 @@ namespace InformationProtection1.Services.Lab2
                     else
                     {
                         F = c ^ (b | ~d);
-                        g = (uint)((7 * k) % 16);
+                        g = (uint)(7 * k % 16);
                     }
 
                     uint temp = d;

@@ -1,18 +1,10 @@
 ﻿using System.Numerics;
-
-namespace InformationProtection1.Services.Lab1
+using InformationProtection1.Dto.Lab1;
+using InformationProtection1.Services.Lab1.Interfaces;
+namespace InformationProtection1.Services.Lab1.Implementations
 {
-    public class PeriodResultDto
-    {
-        public long prefix { get; set; }
-        public long period { get; set; }
-        public PeriodResultDto(long prefix, long period) 
-        {
-            this.prefix = prefix;
-            this.period = period;
-        }
-    }
-    public class PeriodCheckerService
+
+    public class PeriodCheckerService : IPeriodCheckerService
     {
         public long Next(long x, long m, long a, long c)
         {
@@ -26,9 +18,9 @@ namespace InformationProtection1.Services.Lab1
             long X0 = _X0 ?? 37;
             long power = 1, lam = 1;
             long tort = X0, hare = Next(X0, m, a, c);
-            while(tort != hare)
+            while (tort != hare)
             {
-                if(power == lam)
+                if (power == lam)
                 {
                     tort = hare;
                     power <<= 1;
@@ -39,11 +31,11 @@ namespace InformationProtection1.Services.Lab1
             }
             long prefix = 0;
             tort = hare = X0;
-            for(int i = 0; i < lam; i++)
+            for (int i = 0; i < lam; i++)
             {
                 hare = Next(hare, m, a, c);
             }
-            while(tort != hare)
+            while (tort != hare)
             {
                 tort = Next(tort, m, a, c);
                 hare = Next(hare, m, a, c);

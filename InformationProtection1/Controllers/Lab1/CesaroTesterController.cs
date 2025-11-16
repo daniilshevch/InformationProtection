@@ -1,5 +1,5 @@
 ﻿using InformationProtection1.Dto.Lab1;
-using InformationProtection1.Services.Lab1;
+using InformationProtection1.Services.Lab1.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InformationProtection1.Controllers.Lab1

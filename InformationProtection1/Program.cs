@@ -1,9 +1,12 @@
-using Swashbuckle.AspNetCore;
 using Microsoft.OpenApi.Models;
-using InformationProtection1.Services.Lab1;
-using InformationProtection1.Services.Lab2;
-using InformationProtection1.Services.Lab3;
-using InformationProtection1.Services.Lab4;
+using InformationProtection1.Services.Lab1.Interfaces;
+using InformationProtection1.Services.Lab1.Implementations;
+using InformationProtection1.Services.Lab2.Interfaces;
+using InformationProtection1.Services.Lab2.Implementations;
+using InformationProtection1.Services.Lab3.Implementations;
+using InformationProtection1.Services.Lab3.Interfaces;
+using InformationProtection1.Services.Lab4.Implementations;
+using InformationProtection1.Services.Lab4.Interfaces;
 
 class Server
 {
@@ -35,12 +38,12 @@ class Server
         );
 
         services.AddScoped<IRandomSequenceGeneratorService, RandomSequenceGeneratorService>();
-        services.AddScoped<IGcdEstimator, GcdEstimator>();
+        services.AddScoped<IGcdEstimator, GcdEstimator>(); 
         services.AddScoped<IMd5HashService, Md5HashService>();
         services.AddScoped<ICesaroTesterService, CesaroTesterService>();
-        services.AddScoped<PeriodCheckerService>();
-        services.AddScoped<RC5EncryptionService>();
-        services.AddScoped<RSAService>();
+        services.AddScoped<IPeriodCheckerService, PeriodCheckerService>();
+        services.AddScoped<IRC5EncryptionService, RC5EncryptionService>();
+        services.AddScoped<IRSAService, RSAService>();
 
         WebApplication app = builder.Build();
         if (app.Environment.IsDevelopment())

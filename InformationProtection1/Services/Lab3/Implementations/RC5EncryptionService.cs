@@ -1,10 +1,11 @@
 ﻿using System.Text;
-using InformationProtection1.Services.Lab1;
-using InformationProtection1.Services.Lab2;
+using InformationProtection1.Services.Lab1.Interfaces;
+using InformationProtection1.Services.Lab2.Interfaces;
+using InformationProtection1.Services.Lab3.Interfaces;
 
-namespace InformationProtection1.Services.Lab3
+namespace InformationProtection1.Services.Lab3.Implementations
 {
-    public class RC5EncryptionService
+    public class RC5EncryptionService : IRC5EncryptionService
     {
         private readonly uint Pw = 0xB7E15163;
         private readonly uint Qw = 0x9E3779B9;
@@ -32,7 +33,7 @@ namespace InformationProtection1.Services.Lab3
             if (fileBytes[4] == 0x66 && fileBytes[5] == 0x74 && fileBytes[6] == 0x79 && fileBytes[7] == 0x70)
                 return ".mp4";
 
-            return ".bin"; 
+            return ".bin";
         }
         public RC5EncryptionService(IRandomSequenceGeneratorService randomGenerator, IMd5HashService md5Service)
         {
@@ -40,8 +41,8 @@ namespace InformationProtection1.Services.Lab3
             this.md5Service = md5Service;
         }
 
-        public static uint RotateLeft(uint x, int y) => (x << y) | (x >> (32 - y));
-        public static uint RotateRight(uint x, int y) => (x >> y) | (x << (32 - y));
+        public static uint RotateLeft(uint x, int y) => x << y | x >> 32 - y;
+        public static uint RotateRight(uint x, int y) => x >> y | x << 32 - y;
 
         private uint[] GenerateSubKeys(byte[] key, int w, int r)
         {
@@ -92,7 +93,7 @@ namespace InformationProtection1.Services.Lab3
 
         public static byte[] ApplyPadding(byte[] data)
         {
-            int pad = 8 - (data.Length % 8);
+            int pad = 8 - data.Length % 8;
             return data.Concat(Enumerable.Repeat((byte)pad, pad)).ToArray();
         }
 

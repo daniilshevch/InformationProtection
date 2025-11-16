@@ -1,12 +1,14 @@
-﻿using InformationProtection1.Services.Lab1;
+﻿using InformationProtection1.Services.Lab1.Implementations;
+using InformationProtection1.Services.Lab1.Interfaces;
+using InformationProtection1.Dto.Lab1;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InformationProtection1.Controllers.Lab1
 {
     public class PeriodCheckerController: ControllerBase
     {
-        private readonly PeriodCheckerService periodCheckerService;
-        public PeriodCheckerController(PeriodCheckerService periodCheckerService)
+        private readonly IPeriodCheckerService periodCheckerService;
+        public PeriodCheckerController(IPeriodCheckerService periodCheckerService)
         {
             this.periodCheckerService = periodCheckerService;
         }
