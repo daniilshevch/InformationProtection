@@ -10,9 +10,9 @@ namespace InformationProtection1.Controllers.Lab2
     [Route("lab2/[controller]")]
     public class Md5HashController : ControllerBase
     {
-        private readonly Md5HashService md5HashService;
+        private readonly IMd5HashService md5HashService;
 
-        public Md5HashController(Md5HashService md5HashService)
+        public Md5HashController(IMd5HashService md5HashService)
         {
             this.md5HashService = md5HashService;
         }

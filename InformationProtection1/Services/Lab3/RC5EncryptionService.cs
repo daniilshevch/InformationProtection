@@ -8,8 +8,8 @@ namespace InformationProtection1.Services.Lab3
     {
         private readonly uint Pw = 0xB7E15163;
         private readonly uint Qw = 0x9E3779B9;
-        private readonly RandomSequenceGeneratorService randomGenerator;
-        private readonly Md5HashService md5Service;
+        private readonly IRandomSequenceGeneratorService randomGenerator;
+        private readonly IMd5HashService md5Service;
 
         public static string DetectFileExtension(byte[] fileBytes)
         {
@@ -34,7 +34,7 @@ namespace InformationProtection1.Services.Lab3
 
             return ".bin"; 
         }
-        public RC5EncryptionService(RandomSequenceGeneratorService randomGenerator, Md5HashService md5Service)
+        public RC5EncryptionService(IRandomSequenceGeneratorService randomGenerator, IMd5HashService md5Service)
         {
             this.randomGenerator = randomGenerator;
             this.md5Service = md5Service;

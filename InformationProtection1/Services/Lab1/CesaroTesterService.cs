@@ -3,12 +3,12 @@ using System.Transactions;
 
 namespace InformationProtection1.Services.Lab1
 {
-    public class CesaroTesterService
+    public class CesaroTesterService : ICesaroTesterService
     {
-        private readonly GcdEstimator gcdEstimator;
-        private readonly RandomSequenceGeneratorService randomSequenceGeneratorService;
-        public CesaroTesterService(GcdEstimator gcdEstimator,
-            RandomSequenceGeneratorService randomSequenceGeneratorService)
+        private readonly IGcdEstimator gcdEstimator;
+        private readonly IRandomSequenceGeneratorService randomSequenceGeneratorService;
+        public CesaroTesterService(IGcdEstimator gcdEstimator,
+            IRandomSequenceGeneratorService randomSequenceGeneratorService)
         {
             this.gcdEstimator = gcdEstimator;
             this.randomSequenceGeneratorService = randomSequenceGeneratorService;
@@ -32,7 +32,7 @@ namespace InformationProtection1.Services.Lab1
         {
             List<long>? sequence = randomSequenceGeneratorService.GenerateRandomSequence(
                 amount: amount, _m: m, _a: a, _c: c, _X0: X0);
-            if(sequence is null)
+            if (sequence is null)
             {
                 return null;
             }

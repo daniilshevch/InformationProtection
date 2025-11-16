@@ -2,7 +2,7 @@
 
 namespace InformationProtection1.Services.Lab2
 {
-    public class Md5HashService
+    public class Md5HashService : IMd5HashService
     {
         private static readonly uint[] T = new uint[64];
 

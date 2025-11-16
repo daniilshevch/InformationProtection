@@ -8,14 +8,14 @@ namespace InformationProtection1.Tests.Lab1
 {
     public class CesaroTesterServiceTests
     {
-        private readonly Mock<GcdEstimator> _mockGcdEstimator;
-        private readonly Mock<RandomSequenceGeneratorService> _mockGenerator;
+        private readonly Mock<IGcdEstimator> _mockGcdEstimator;
+        private readonly Mock<IRandomSequenceGeneratorService> _mockGenerator;
         private readonly CesaroTesterService _service;
 
         public CesaroTesterServiceTests()
         {
-            _mockGcdEstimator = new Mock<GcdEstimator>();
-            _mockGenerator = new Mock<RandomSequenceGeneratorService>();
+            _mockGcdEstimator = new Mock<IGcdEstimator>();
+            _mockGenerator = new Mock<IRandomSequenceGeneratorService>();
             _service = new CesaroTesterService(_mockGcdEstimator.Object, _mockGenerator.Object);
         }
 

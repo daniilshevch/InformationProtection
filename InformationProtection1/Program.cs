@@ -34,12 +34,11 @@ class Server
             })
         );
 
-        services.AddScoped<RandomSequenceGeneratorService>();
-        services.AddScoped<GcdEstimator>();
-        services.AddScoped<FileSaverService>();
-        services.AddScoped<CesaroTesterService>();
+        services.AddScoped<IRandomSequenceGeneratorService, RandomSequenceGeneratorService>();
+        services.AddScoped<IGcdEstimator, GcdEstimator>();
+        services.AddScoped<IMd5HashService, Md5HashService>();
+        services.AddScoped<ICesaroTesterService, CesaroTesterService>();
         services.AddScoped<PeriodCheckerService>();
-        services.AddScoped<Md5HashService>();
         services.AddScoped<RC5EncryptionService>();
         services.AddScoped<RSAService>();
 

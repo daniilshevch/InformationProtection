@@ -6,8 +6,8 @@ namespace InformationProtection1.Controllers.Lab1
 {
     public class CesaroTesterController: ControllerBase
     {
-        private readonly CesaroTesterService cesaroTesterService;
-        public CesaroTesterController(CesaroTesterService cesaroTesterService)
+        private readonly ICesaroTesterService cesaroTesterService;
+        public CesaroTesterController(ICesaroTesterService cesaroTesterService)
         {
             this.cesaroTesterService = cesaroTesterService;
         }
