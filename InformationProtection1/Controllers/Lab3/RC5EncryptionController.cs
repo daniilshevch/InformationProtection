@@ -64,7 +64,7 @@ namespace InformationProtection1.Controllers.Lab3
             };
 
             result.FileDownloadName = outputFileName;
-            Response.Headers["Content-Disposition"] = $"attachment; filename=\"{outputFileName}\"";
+            //Response.Headers["Content-Disposition"] = $"attachment; filename=\"{outputFileName}\"";
 
             return result;
         }
