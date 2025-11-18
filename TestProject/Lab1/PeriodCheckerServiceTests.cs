@@ -1,7 +1,8 @@
 ﻿using Xunit;
 using InformationProtection1.Services.Lab1.Implementations;
+using InformationProtection1.Dto.Lab1;
 
-namespace InformationProtection1.Tests.Lab1
+namespace TestProject.Lab1
 {
     public class PeriodCheckerServiceTests
     {

@@ -51,8 +51,8 @@ namespace InformationProtection1.Controllers.Lab3
         [HttpPost("decrypt-file")]
         public async Task<IActionResult> DecryptFile([FromForm] RC5FileEncryptRequestDto dto)
         {
-            byte[] decrypted = await rc5Service.DecryptFileAsync(dto.File, dto.Password, dto.KeyBits);
-            byte[] decryptedBytes = RC5EncryptionService.RemovePadding(decrypted);
+            byte[] decryptedBytes = await rc5Service.DecryptFileAsync(dto.File, dto.Password, dto.KeyBits);
+            //byte[] decryptedBytes = RC5EncryptionService.RemovePadding(decrypted);
 
             string ext = RC5EncryptionService.DetectFileExtension(decryptedBytes);
             string originalName = Path.GetFileNameWithoutExtension(dto.File.FileName);
