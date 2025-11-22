@@ -7,6 +7,8 @@ using InformationProtection1.Services.Lab3.Implementations;
 using InformationProtection1.Services.Lab3.Interfaces;
 using InformationProtection1.Services.Lab4.Implementations;
 using InformationProtection1.Services.Lab4.Interfaces;
+using InformationProtection1.Services.Lab5.Interfaces;
+using InformationProtection1.Services.Lab5.Implementations;
 
 class Server
 {
@@ -44,6 +46,7 @@ class Server
         services.AddScoped<IPeriodCheckerService, PeriodCheckerService>();
         services.AddScoped<IRC5EncryptionService, RC5EncryptionService>();
         services.AddScoped<IRSAService, RSAService>();
+        services.AddScoped<IDsaService, DsaService>();
 
         WebApplication app = builder.Build();
         if (app.Environment.IsDevelopment())
