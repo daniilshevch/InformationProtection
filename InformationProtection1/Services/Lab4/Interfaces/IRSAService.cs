@@ -2,8 +2,8 @@
 {
     public interface IRSAService
     {
-        Task DecryptStreamAsync(Stream inputStream, string privateKeyPem, Stream outputStream);
-        Task EncryptStreamAsync(Stream inputStream, string publicKeyPem, Stream outputStream);
+        Task<long> DecryptStreamAsync(Stream inputStream, string privateKeyPem, Stream outputStream);
+        Task<long> EncryptStreamAsync(Stream inputStream, string publicKeyPem, Stream outputStream);
         (string publicKeyPem, string privateKeyPem) GenerateKeys();
     }
 }

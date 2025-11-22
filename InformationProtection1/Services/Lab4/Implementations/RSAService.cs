@@ -1,4 +1,5 @@
 ﻿using InformationProtection1.Services.Lab4.Interfaces;
+using System.Diagnostics;
 using System.Security.Cryptography;
 
 namespace InformationProtection1.Services.Lab4.Implementations
@@ -18,8 +19,9 @@ namespace InformationProtection1.Services.Lab4.Implementations
             return (publicKeyPem, privateKeyPem);
         }
 
-        public async Task EncryptStreamAsync(Stream inputStream, string publicKeyPem, Stream outputStream)
+        public async Task<long> EncryptStreamAsync(Stream inputStream, string publicKeyPem, Stream outputStream)
         {
+            Stopwatch sw = Stopwatch.StartNew();
             using var rsa = RSA.Create();
             rsa.ImportFromPem(publicKeyPem);
 
@@ -47,10 +49,13 @@ namespace InformationProtection1.Services.Lab4.Implementations
             {
                 await inputStream.CopyToAsync(cryptoStream);
             }
+            sw.Stop();
+            return sw.ElapsedMilliseconds;
         }
 
-        public async Task DecryptStreamAsync(Stream inputStream, string privateKeyPem, Stream outputStream)
+        public async Task<long> DecryptStreamAsync(Stream inputStream, string privateKeyPem, Stream outputStream)
         {
+            Stopwatch sw = Stopwatch.StartNew();
             using var rsa = RSA.Create();
             rsa.ImportFromPem(privateKeyPem);
 
@@ -79,6 +84,8 @@ namespace InformationProtection1.Services.Lab4.Implementations
             {
                 await cryptoStream.CopyToAsync(outputStream);
             }
+            sw.Stop();
+            return sw.ElapsedMilliseconds;
         }
 
         private async Task ReadExactlyAsync(Stream stream, byte[] buffer, int offset, int count)

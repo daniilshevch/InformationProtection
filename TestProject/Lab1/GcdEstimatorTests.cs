@@ -1,31 +1,23 @@
-﻿using Xunit;
-using InformationProtection1.Services.Lab1.Implementations;
+﻿using InformationProtection1.Services.Lab1.Implementations;
 
-namespace TestProject.Lab1
+namespace InformationProtection1.Tests.Lab1.Services
 {
     public class GcdEstimatorTests
     {
-        private readonly GcdEstimator _estimator;
-
-        public GcdEstimatorTests()
-        {
-            _estimator = new GcdEstimator();
-        }
-
         [Theory]
-        [InlineData(48, 18, 6)]
-        [InlineData(18, 48, 6)]
-        [InlineData(17, 5, 1)]
-        [InlineData(10, 0, 10)]
-        [InlineData(0, 5, 5)]
-        [InlineData(0, 0, 0)]
-        [InlineData(1, 1, 1)]
-        [InlineData(-48, 18, 6)]
-        [InlineData(48, -18, 6)]
-        [InlineData(-48, -18, 6)]
-        public void CountGCD_ShouldReturnCorrectGcd(long a, long b, long expected)
+        [InlineData(12, 18, 6)]
+        [InlineData(101, 100, 1)]
+        [InlineData(7, 0, 7)]
+        [InlineData(0, 7, 7)]
+        [InlineData(21, 35, 7)]
+        [InlineData(100, 100, 100)]
+        [InlineData(1, 1000, 1)]
+        [InlineData(-12, 18, 6)]
+        [InlineData(-21, -35, 7)]
+        public void CountGCD_ShouldReturnCorrectGCD(long a, long b, long expected)
         {
-            long result = _estimator.CountGCD(a, b);
+            var estimator = new GcdEstimator();
+            long result = estimator.CountGCD(a, b);
             Assert.Equal(expected, result);
         }
     }

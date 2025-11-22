@@ -5,11 +5,12 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
 using InformationProtection1.Services.Lab4.Interfaces;
+
 namespace InformationProtection1.Controllers.Lab4
 {
     [ApiController]
     [Route("lab4/[controller]")]
-    public class RSAController: ControllerBase
+    public class RSAController : ControllerBase
     {
         private readonly IRSAService rsaService;
 
@@ -17,8 +18,6 @@ namespace InformationProtection1.Controllers.Lab4
         {
             this.rsaService = rsaService;
         }
-
-
         [HttpPost("generate-keys")]
         [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
         public IActionResult GenerateKeysAndDownload()
@@ -61,13 +60,33 @@ namespace InformationProtection1.Controllers.Lab4
             }
 
             var outputStream = new MemoryStream();
-            await rsaService.EncryptStreamAsync(request.InputFile.OpenReadStream(), publicKeyPem, outputStream);
+            long encryptionTimeMs;
+
+            try
+            {
+                encryptionTimeMs = await rsaService.EncryptStreamAsync(request.InputFile.OpenReadStream(), publicKeyPem, outputStream);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest($"Помилка: Некоректний формат публічного ключа. Перевірте, чи це файл PEM. ({ex.Message})");
+            }
+            catch (CryptographicException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest($"Помилка шифрування: Некоректний публічний ключ. ({ex.Message})");
+            }
 
             outputStream.Seek(0, SeekOrigin.Begin);
-            return File(outputStream.ToArray(), "application/octet-stream", "encrypted.dat");
+
+            Response.Headers.Append("X-Encryption-Time-Ms", encryptionTimeMs.ToString());
+
+            string filename = $"encrypted_{request.InputFile.FileName}.dat";
+
+            return File(outputStream.ToArray(), "application/octet-stream", filename);
         }
 
-        [HttpPost("decrypt-file")] 
+        [HttpPost("decrypt-file")]
         [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> DecryptFile([FromForm] RSADecryptFileRequestDto request)
         {
@@ -86,17 +105,21 @@ namespace InformationProtection1.Controllers.Lab4
             {
                 await rsaService.DecryptStreamAsync(request.EncryptedFile.OpenReadStream(), privateKeyPem, outputStream);
             }
+            catch (ArgumentException ex)
+            {
+                return BadRequest($"Помилка: Некоректний формат приватного ключа. Перевірте, чи це файл PEM. ({ex.Message})");
+            }
             catch (CryptographicException ex)
             {
-                return BadRequest($"Помилка дешифрування. Перевірте ключ. ({ex.Message})");
+                return BadRequest($"Помилка дешифрування. Можливо, використовується невідповідний приватний ключ. ({ex.Message})");
             }
             catch (EndOfStreamException ex)
             {
                 return BadRequest($"Помилка читання файлу, можливо, він пошкоджений. ({ex.Message})");
             }
-
             outputStream.Seek(0, SeekOrigin.Begin);
-            return File(outputStream.ToArray(), "application/octet-stream", "decrypted_file");
+            string originalFileName = Path.GetFileNameWithoutExtension(request.EncryptedFile.FileName);
+            return File(outputStream.ToArray(), "application/octet-stream", $"decrypted_{originalFileName}");
         }
     }
 }

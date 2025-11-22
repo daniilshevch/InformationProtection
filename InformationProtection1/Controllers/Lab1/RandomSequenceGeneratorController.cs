@@ -1,12 +1,13 @@
 ﻿using InformationProtection1.Services.Lab1.Implementations;
+using InformationProtection1.Services.Lab1.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InformationProtection1.Controllers.Lab1
 {
     public class RandomSequenceGeneratorController: ControllerBase
     {
-        private readonly RandomSequenceGeneratorService randomSequenceGeneratorService;
-        public RandomSequenceGeneratorController(RandomSequenceGeneratorService randomSequenceGeneratorService)
+        private readonly IRandomSequenceGeneratorService randomSequenceGeneratorService;
+        public RandomSequenceGeneratorController(IRandomSequenceGeneratorService randomSequenceGeneratorService)
         {
             this.randomSequenceGeneratorService = randomSequenceGeneratorService;
         }
